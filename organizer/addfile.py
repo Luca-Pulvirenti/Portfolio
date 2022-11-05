@@ -3,17 +3,6 @@
     # Ogni qual volta incontriamo un tipo di file non visto prima creare una sottocartella per quel tipo di file V 
     # Durante l'iterazione spostare ogni file nella cartella del corrispettivo tipo di file. V
 # 3 Durante il ciclo lo script dovrà stampare le informazioni dei file: nome, tipo e dimensione in byte. V
-# Questo è l'output desiderato 
-'''''
-bw type:image size:94926B
-ciao type:doc size:12B
-dafipse type:image size:64243B
-pippo type:doc size:8299B
-songfodil type:image size:24657B
-ecl1 type:audio size:1087849B
-song2 type:audio size:764176B
-trump type:image size:10195B
-'''''
 # 4 Creare un file ( recap.csv ) che tenga traccia di tutti i file man mano che vengono spostati V
 
 import os 
@@ -99,7 +88,7 @@ def main():
                         type= str)
     args = parser.parse_args()
 
-    position_files= "c:/Users/lucas/OneDrive/Documenti/Python/FileOrganizer/files"
+    position_files= "Insert the path of the directory that you want to 'organize'. "
     informations_of_files = iteration_files(position_files,args.name_file)
     recap(position_files,informations_of_files)
 
