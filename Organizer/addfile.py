@@ -45,7 +45,7 @@ def create_set_types(path_files):
     return set_types,name_files,exist
 
 def move_file(position_files,name_file):
-# Per verificare se la directory esiste già, creo un insieme con le tre categorie (immagini, documenti, audio).
+
     set_types,name_files, exist = create_set_types(position_files)
 
     dictionary_file = create_dictionary_file(name_file,position_files)
@@ -82,7 +82,7 @@ def main():
                         type= str)
     args = parser.parse_args()
 
-    position_files= "" ## INSERIRE Path della posizione della directory "files".
+    position_files= "" ## INSERT Path of the location of the "files" directory.
     informations_of_files = move_file(position_files,args.name_file)
     recap(position_files,informations_of_files)
 
