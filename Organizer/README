@@ -1,1 +1,4 @@
-CIAO
+The goal of the first program is to analyze ALL files within a folder (which folder path must be entered manually within the main), understand through their extensions what type of files they are, and categorize them within 3 sub-folders (Images, docs, audio). 
+An implementation to be made to this step is to be able to analyze any type of file with any type of extension, so for now, all files that the program does not know, in terms of extension, will be placed in a separate folder, named "other".
+
+In addition, the program has a second goal to analyze all images inside the folder "images" to define whether the image is grayscale, RGB or RGBA. 
