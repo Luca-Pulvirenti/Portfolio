@@ -32,7 +32,7 @@ def create_dictionary_file(name_file,resource):
         elif name_split[1] == ".mp3":
             dictionary_file[name_file]= {"type" : "audio","size":size}
         else:
-            dictionary_file[name_file]= {"type" : "altro","size":size}
+            dictionary_file[name_file]= {"type" : "other","size":size}
     else : 
         exit("the name you wrote doesn't identified a file")
 
@@ -108,7 +108,7 @@ def main():
                         type= str)
     args = parser.parse_args()
 
-    position_files= "/Users/lucas/OneDrive/Documenti/Python/Public_Projects/FileOrganizer/files" ## INSERIRE Path della posizione della directory "files".
+    position_files= "" ## INSERIRE Path della posizione della directory "files".
     informations_of_files,exist = move_file(position_files,args.name_file)
     recap(position_files,informations_of_files,exist)
 
