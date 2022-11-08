@@ -1,4 +1,0 @@
-Minesweeper is a very interesting game created by Curt Johnson. 
-In the game it is presented with a grid of squares in which mines are hidden. 
-Whenever you click a square on the grid (in case there is no bomb) numbers will appear indicating how many mines touch the square. 
-If you click on a mine, you lose the game!
