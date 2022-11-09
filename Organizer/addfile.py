@@ -96,7 +96,7 @@ def recap(position_files, dictionary, name_recap):
 
 
 # INSERT Path of the location of the "files" directory
-position_files = "/Users/lucas/OneDrive/Documenti/Python/Public_Projects/FileOrganizer/files"
+position_files = ""
 name_recap = "recap.csv"
 
 IMAGE_EXTENSION = [".jpg", ".png", ".jpeg"]
