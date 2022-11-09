@@ -52,18 +52,15 @@ def printa_tabule(table):
 
 
 # INSERT Path of the location of the "files" directory
-position_files= "/Users/lucas/OneDrive/Documenti/Python/Public_Projects/FileOrganizer/files"
-directory_name = "images"
-directory_images = os.path.join(position_files,directory_name)
+position_files= ""
+
+list_of_images = [os.path.join(position_files, image) for image in os.listdir(position_files)]
 
 # Creation of a database with all the information we need about an image:
 # 1) Height of the image, in pixels
 # 2) Width of the image, in pixels.
 # 3) If the image is greyscale, I'm interested in the average of the values in greyscale then of the one color layer.
 # 4) If the image is in color, I'm interested of the average of the values of each color layer
-list_of_images = [os.path.join(directory_images, image) for image in os.listdir(directory_images)]
-
-# Creating a database via table with the information we need for each image.
 table = list_info_image(list_of_images)
 
 # Print of the table with the information I was interested, using the tabulate library.
