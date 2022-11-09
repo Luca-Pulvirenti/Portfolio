@@ -1,1 +1,2 @@
-
+The goal of the program is to analyze all images inside a folder to define whether the image is grayscale, RGB or RGBA.
+So print a table with some useful informations. 
