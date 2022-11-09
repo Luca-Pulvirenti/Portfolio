@@ -52,7 +52,8 @@ def printa_tabule(table):
 
 
 # INSERT Path of the location of the "files" directory
-position_files= "/Users/lucas/OneDrive/Documenti/Python/Public_Projects/FileOrganizer/files"
+position_files= ""
+
 directory_name = "images"
 directory_images = os.path.join(position_files,directory_name)
 
