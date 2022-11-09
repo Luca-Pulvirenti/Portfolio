@@ -3,115 +3,119 @@ from os import path
 import shutil
 import csv
 import argparse
+import sys
 
-#Create a directory function
-def create_directory(path,directory_name):
 
-    directory_dest = path + "/" + directory_name
-    os.mkdir(directory_dest)
+def request_name_file(position_files):
 
-# Create a database (type "dictionary") to memorazie all the data of the file I'm interested 
-# with these characteristcs : 
+    # Creation o the command line control
+    parser = argparse.ArgumentParser()
+    
+    # Specification of the only mandatory topic
+    parser.add_argument("name_file", help=" I need the name of the file, like this 'file.jpg' ", type=str)
+    args = parser.parse_args()
+    name_file = args.name_file
+    
+    # Creation of the file path
+    path_file = os.path.join(position_files, name_file)
+
+    return path_file
+
+
+# Create a database (type "dictionary") to memorize all the data of the file I'm interested
+# with these characteristics:
 # {"filename": {"type":"name directory", "size": "size of the file"}.
-def create_dictionary_file(name_file,resource):
+def create_dictionary_file(path_file):
 
-    dictionary_file={}
+    dictionary_file = {}
 
-    resource_file = resource + "/" + name_file
+    # I took the only file name
+    name_file = os.path.basename(path_file)
 
-    # Check to control if what we are analyzing it is a file.
-    if path.isfile(resource_file) :
-        size = path.getsize(resource_file)
-        name_split = path.splitext(name_file)
+    # I took the size in byte of the file
+    size = path.getsize(path_file)
 
-        #Check what type of file it is to put the file in the right directory
-        if name_split[1] == ".jpg" or name_split[1] == ".png" or name_split[1] == ".jpeg":
-            dictionary_file[name_file]= {"type" : "images","size":size}
-        elif name_split[1] == ".txt" or name_split[1] == ".odt" or name_split[1] == ".docx":
-            dictionary_file[name_file]= {"type" : "docs","size":size}
-        elif name_split[1] == ".mp3":
-            dictionary_file[name_file]= {"type" : "audio","size":size}
-        else:
-            dictionary_file[name_file]= {"type" : "other","size":size}
-    else : 
-        exit("the name you wrote doesn't identified a file")
+    # I took the extension of the file
+    _, ext = path.splitext(name_file)
+
+    # Check what type of file it is to put the file in the right directory
+    if ext in IMAGE_EXTENSION:
+        dictionary_file[name_file] = {"type": "images", "size": size}
+    elif ext in DOC_EXTENSION:
+        dictionary_file[name_file] = {"type": "docs", "size": size}
+    elif ext in AUDIO_EXTENSION:
+        dictionary_file[name_file] = {"type": "audio", "size": size}
+    else:
+        dictionary_file[name_file] = {"type": "altro", "size": size}
 
     return dictionary_file
 
-# I need to create a set to store all the directories already created.
-# To not overwrite the macro directory with already existing directories.
-def create_set_types(path_files):
-    exist = False
-    set_types = set()
-    name_elements = os.listdir(path_files)
-    name_files = list(name_elements)
-    for name in name_elements: 
-        if path.isdir(path_files + "/" + name):
-            name_files.remove(name)
-            set_types.add(name)
 
-        # While i do this check it is usefull store if the "recap.csv" file it is already created.
-        # In order to write a Hader ( we will do this in another part of the program) 
-        # within the file if the file was not exist before.
-        elif name == "recap.csv":
-            exist = True 
-
-    return set_types,exist
-
-def move_file(position_files,name_file):
-    # To check if the directory already exists, I create a set with the three categories (images, documents, audio).
-    set_types, exist = create_set_types(position_files)
+def move_file(position_files, path_file):
 
     # I create a dictionary to match the file to its type (image, document, audio) and size.
-    dictionary_file = create_dictionary_file(name_file,position_files)
+    dictionary_file = create_dictionary_file(path_file)
+
+    name_file = os.path.basename(path_file)
 
     # I acquire the directory name information.
     directory = dictionary_file[name_file]["type"]
+    path_directory = os.path.join(position_files, directory)
 
     # Check the exist of the directory name.
-    if directory not in set_types:
-            set_types.add(directory)
-            create_directory(position_files,directory)
+    if not os.path.exists(path_directory):
+        os.mkdir(path_directory)
     
     # move de file in the right directory.
-    resource = position_files + "/" + name_file
-    dest_path = position_files + "/" + directory
-    shutil.move(resource,dest_path)
+    shutil.move(path_file, path_directory)
 
-    return dictionary_file,exist
-    
-# Create a file CSV to recap all the file moved
-def recap(path_position,dictionary,exist):
+    return dictionary_file
 
-    name_path = path_position + "/" + "recap.csv"
 
-    #Here is were we use the boolean "exist" the we made during the creating of the set().
-    if not exist :
-        with open(name_path,'w', encoding="UTF8", newline="") as f:
+# Creation of a file CSV to recap all the file moved
+def recap(position_files, dictionary, name_recap):
+
+    path_recap = os.path.join(position_files, name_recap)
+
+    # Here is were we use the boolean "exist" the we made during the creating of the set().
+    if not os.path.exists(path_recap):
+        with open(path_recap, 'w', encoding="UTF8", newline="") as f:
             writer = csv.writer(f)
+
             # Header
-            writer.writerow(["name","type","size(B)"])
+            writer.writerow(["name", "type", "size(B)"])
     
-    with open(name_path,"a", encoding="UTF8", newline="") as f:
+    with open(path_recap, "a", encoding="UTF8", newline="") as f:
         writer = csv.writer(f)
-        for name,info in dictionary.items():
+        for name, info in dictionary.items():
             name_clean = path.splitext(name)[0]
-            #Files  
+
+            # Files
             writer.writerow([name_clean, info["type"], str(info["size"])])
             print("Il file è stato spostato con successo. Controlla il tuo recap !")
 
-def main():
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument("name_file", 
-                        help= "I need the name of the file, like this 'file.jpg' ",
-                        type= str)
-    args = parser.parse_args()
 
-    position_files= "" ## INSERIRE Path della posizione della directory "files".
-    informations_of_files,exist = move_file(position_files,args.name_file)
-    recap(position_files,informations_of_files,exist)
+# INSERT Path of the location of the "files" directory
+position_files = ""
+name_recap = "recap.csv"
 
-if __name__ == "__main__":
-    main()
+IMAGE_EXTENSION = [".jpg", ".png", ".jpeg"]
+DOC_EXTENSION = [".docx", ".txt", ".odt"]
+AUDIO_EXTENSION = [".mp3"]
+
+path_file = request_name_file(position_files)
+
+
+# File existence check
+if not os.path.exists(path_file):
+    print(f'Il file <{os.path.basename(path_file)}> non esiste.')
+    sys.exit(0)
+
+
+# Moving the file to the correct folder
+# Creation of a database with the information of the file i need
+dictionary_file = move_file(position_files, path_file)
+
+# Recap of moved files
+recap(position_files, dictionary_file, name_recap)
 
