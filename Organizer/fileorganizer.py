@@ -113,7 +113,7 @@ def recap(path_position,dictionary):
 
 
 # INSERT Path of the location of the "files" directory
-position_files= "/Users/lucas/OneDrive/Documenti/Python/Public_Projects/FileOrganizer/files"
+position_files= ""
 RECAP_FILENAME = "recap.csv"
 PICTURE_EXTENSIONS = [".jpg", ".png", ".jpeg"]
 DOCS_EXTENSIONS = [".txt", ".odt", ".docx"]
