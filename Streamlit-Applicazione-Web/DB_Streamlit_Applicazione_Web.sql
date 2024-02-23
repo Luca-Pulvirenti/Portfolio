@@ -1,29 +1,28 @@
 /*
   Name: MySQL Sample Database DB_Quaderno3
-  Realizzare la base di dati per la registrazione degli ospiti di podcast. Considerare lo schema logico riportato di
-    seguito. Considerare lo schema logico riportato di seguito:
+  Create the database for registering podcast guests. Consider the logical schema shown
+    below. Consider the logical schema below:
 
     PERSONA(CodiceFiscale, Nome, Cognome, Nazione, Età)
     PODCAST(CodPodcast, CodFiscalePresentatore)
     INFO_PODCAST(CodPodcast,Titolo, Servizio, Finito*)
     APPARIZIONE(CodiceFiscalePartecipante, CodPodcast, NumeroPuntata, DataUscita)
 
-    Nota: i campi sottolineati identificano la chiave primaria di ciascuna relazione, mentre l’asterisco identifica un
-    campo opzionale. CodPodcast è una stringa alfanumerica di 10 caratteri. NumeroPuntata è un codice numerico,
-    che parte obbligatoriamente da 1.
+    Note: the underlined fields identify the primary key of each relation, while the asterisk identifies an
+    optional field. CodPodcast is a 10-character alphanumeric string. CodPodcast is a numeric code,
+    which must start from 1.
 
-    Nota per lo svolgimento della parte I: Nella creazione e nell’interrogazione della base di dati, per garantire
-    la validità dell’elaborato consegnato, è obbligatorio attenersi alla nomenclatura usata nel testo per i nomi
-    delle relazioni e degli attributi (incluso l’uso di maiuscole e minuscole).
+    Note for Part I: When creating and querying the database, to ensure
+    validity of the delivered work, it is mandatory to follow the nomenclature used in the text for the names
+    of relations and attributes (including the use of upper and lower case).
 
-    Sono richieste le seguenti attività:
-    • Creare uno script MySQL con:
-        1. Le istruzioni per la creazione della base di dati corrispondente allo schema logico indicato e la specifica
-        degli opportuni vincoli;
-        2. Le istruzioni per il popolamento della base di dati creata al punto precedente (almeno 5 record per la
-        tabella delle persone, 2 record di podcast ed almeno 2 apparizioni)
+    The following activities are required:
+    - Create a MySQL script with:
+        1. The instructions for creating the database corresponding to the indicated logical schema and specifying
+        of the appropriate constraints;
+        2. The instructions for populating the database created in the previous step (at least 5 records for the
+        people table, 2 podcast records and at least 2 appearances)
 
-  Link: http://www.mysqltutorial.org/mysql-sample-database.aspx
 */
 
 
